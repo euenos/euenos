@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU E NÓS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8fbff;
+        }
+        
+        .dancing-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .photo-item:hover .photo-caption {
+            opacity: 1;
+        }
+        
+        .music-player {
+            background: linear-gradient(135deg, #9ad0ff 0%, #d0e4ff 100%);
+            border-radius: 12px;
+        }
+        
+        .poem-card {
+            background: white;
+            border-left: 4px solid #84c1ff;
+            transition: all 0.3s ease;
+        }
+        
+        .poem-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #84c1ff;
+        }
+        
+        .carousel-container {
+            position: relative;
+        }
+
+        .carousel-track {
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            transition: opacity 0.5s ease;
+        }
+
+        .carousel-indicator.active {
+            background-color: #e11d48;
+            transform: scale(1.2);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            opacity: 0;
+            animation: float 8s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <!-- Header with Love Theme -->
+    <header class="bg-gradient-to-r from-blue-400 to-blue-500 py-16 text-center text-white px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold dancing-font mb-4">Eu e Nós</h1>
+            <p class="text-xl md:text-2xl dancing-font mb-8">2013-2024<br>Em construção</p>
+            <div class="heart-beat text-4xl">❤️</div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav class="sticky top-0 bg-white shadow-md z-10">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-1 md:space-x-6 py-4 overflow-x-auto">
+                <a href="#poems" class="px-3 py-2 text-blue-600 font-medium hover:text-blue-700 transition">Poemas</a>
+                <a href="#songs" class="px-3 py-2 text-blue-600 font-medium hover:text-blue-700 transition">Músicas</a>
+                <a href="#photos" class="px-3 py-2 text-blue-600 font-medium hover:text-blue-700 transition">Fotos</a>
+                <a href="#timeline" class="px-3 py-2 text-blue-600 font-medium hover:text-blue-700 transition">A Jornada</a>
+                <a href="#letter" class="px-3 py-2 text-blue-600 font-medium hover:text-blue-700 transition">Cartas</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-12">     
+        <!-- Songs Section -->
+        <section id="songs" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 dancing-font text-blue-600">Músicas</h2>
+            
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Song 1 -->
+                <div class="music-player p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-pink-100 rounded-md flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Hooked On A Feeling</h3>
+                            <p class="text-pink-100">Blue Swede</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">"Como tudo começou..."</p>
+                    <audio controls class="w-full mt-2">
+                        <source src="src/Hooked On A Feeling.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <!-- Song 2 -->
+                <div class="music-player p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-pink-100 rounded-md flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Your Love</h3>
+                            <p class="text-pink-100">The Outfield</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">"A primeira vez que percebemos que não queríamos perder um ao outro"</p>
+                    <audio controls class="w-full mt-2">
+                        <source src="src/Your Love.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <!-- Song 3 -->
+                <div class="music-player p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-pink-100 rounded-md flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Tangerine</h3>
+                            <p class="text-pink-100">Led Zeppelin</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">"Toda vez que toco lembro de você."</p>
+                    <audio controls class="w-full mt-2" autoplay>
+                        <source src="src/Tangerine.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                
+                <!-- Song 4 -->
+                <div class="music-player p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-pink-100 rounded-md flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Thunder Road</h3>
+                            <p class="text-pink-100">Bruce Springsteen</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">"A gente sempre soube que seria difícil."</p>
+                    <audio controls class="w-full mt-2">
+                        <source src="src/Thunder Road.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <!-- Song 5 -->
+                <div class="music-player p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-pink-100 rounded-md flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Thank You</h3>
+                            <p class="text-pink-100">Led Zeppelin</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">"If the sun refused to shine I would still be loving you"</p>
+                    <audio controls class="w-full mt-2">
+                        <source src="src/Thank-You.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <!-- Song 6 -->
+                <div class="music-player p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-pink-100 rounded-md flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-2xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-white">Lutar pelo que é meu</h3>
+                            <p class="text-pink-100">Charlie Brown Jr</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">"A gente passa entender melhor a vida quando encontra o verdadeiro amor"</p>
+                    <audio controls class="w-full mt-2">
+                        <source src="src/Charlie Brown Jr   Lutar Pelo Que É Meu(MP3_160K).mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </section>
+        
+        <main class="container mx-auto px-4 py-12">
+        <!-- Poems Section -->
+        <section id="poems" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 dancing-font text-blue-600">Poemas</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+               <!-- Poem 1 -->
+                <div class="poem-card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 dancing-font text-blue-800">Desabandono</h3>
+                    <p class="text-gray-700 italic mb-4">
+                        Eu lembro da noite, quando amigos erámos<br>
+                        Você tão longe, como quando não existíamos<br>
+                        Romances vivi antes, mas não quero ser<br>
+                        Um homem que é cego antes do amor ver<br>
+                        É difícil, mas precisamos tentar<br>
+                        Minha querida, eu nunca vou te deixar.<br>
+                        <br>
+                        Caminhe do meu lado, o sol há de brilhar<br>
+                        Em passos lentos um dia vamos chegar<br>
+                        Ambos sempre perseguindo ele, o amor<br>
+                        E agora chegou a hora, não é mais rumor<br>
+                        E você não precisa mais se queixar<br>
+                        Por que querida, eu nunca vou te deixar<br>
+                    </p>
+                    <div class="text-sm text-pink-500">Abril, 2023</div>
+                </div>
+                
+                <!-- Poem 2 -->
+                <div class="poem-card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 dancing-font text-blue-800">Maio</h3>
+                    <p class="text-gray-700 italic mb-4">
+                        No oceano do teu olho mergulhei,<br>
+                        Eu vi o fogo que arde profundo na alma;<br>
+                        E o vento do amor soprando com calma,<br>
+                        Incerto se é o que procurei.<br>
+                         <br>
+                        Eu que sempre estive  dentro de ti,<br>
+                        Desde a primeira vez que estive aqui,<br>
+                        Desbravando o teu doce coração,<br>
+                        Neste agradável dia de verão.<br>
+                        <br>
+                        Muito tempo atrás conheci o amor,<br>
+                        Sabendo que tinha olhos azuis;<br>
+                        Sensível e gentil, como uma flor.<br>
+                        <br>
+                        O mês de maior guarda tanta graça,<br>
+                        E como um milagre na vida rasa,<br>
+                        A chuva triste por um dia passa.<br>
+                    </p>
+                    <div class="text-sm text-pink-500"> Maio, 2023</div>
+                </div>
+                
+                <!-- Poem 3 -->
+                <div class="poem-card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 dancing-font text-blue-800">Amor Azul</h3>
+                    <p class="text-gray-700 italic mb-4">
+                        Olhos tão, mas tão azuis;<br>
+                        Olhos da cor do mar,<br>
+                        Que me traz harmonia,<br>
+                        E que me ensina amar.<br>
+                        <br>
+                        Como na natureza,<br>
+                        A mais escassa cor.<br>
+                        Os olhos mostram a alma;<br>
+                        E as ondas postas em calma,<br>
+                        Refletem o meu amor.<br>
+                        <br>
+                        Azul da cor do céu,<br>
+                        Exprime minha paixão,<br>
+                        Que facilmente inflama,<br>
+                        Que com carinho exclama:<br>
+                        A voz do meu coração!<br>
+                        <br>
+                        Meu amor de olho azul,<br>
+                        Mas de um azul tão vívido,<br>
+                        Que pode até brilhar.<br>
+                        Azul da cor da vida,<br>
+                        Azul da cor do mar.<br>
+                    </p>
+                    <div class="text-sm text-pink-500"> Outubro, 2023</div>
+                </div>
+                
+                <!-- Poem 3 -->
+                <div class="poem-card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 dancing-font text-blue-800">Lembranças</h3>
+                    <p class="text-gray-700 italic mb-4">
+                      Ontem me lembrei de ti,<br>
+                      E o sol se esvanesceu então;<br>
+                      Imensidão de memórias, sim,<br>
+                      Minha pele corroída em vão.<br>
+                        <br>
+                      E lembro, lembro e não existo;<br>
+                      Coexisto contigo aqui.<br>
+                      Te assisto dentro, como se tu<br>
+                      Habitasse no meu peito assim.<br>
+                        <br>
+                      Outro dia como os demais,<br>
+                      Teu estar, um incomôdo, enfim;<br>
+                      De relembrar mais uma vez sinais<br>
+                      De um amor que existiu dentro de mim.<br>
+                    </p>
+                    <div class="text-sm text-pink-500"> Novembro, 2023</div>
+                </div>
+                <!-- Add more poems as needed -->
+            </div>
+        </section>
+
+       <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Photos Section -->
+<section id="photos" class="mb-20">
+  <h2 class="text-3xl font-bold text-center mb-12 dancing-font text-blue-600">Galeria</h2>
+
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+
+      <!-- Slides -->
+      <div class="swiper-slide">
+        <img src="src/galeria/1f8baa85-7d50-46fb-8e93-16b156d329b5.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+      
+      <div class="swiper-slide">
+        <img src="src/galeria/2cb2046e-f76f-49cb-a40b-80e1e3ae2116.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/4899aef2-57e6-4874-9430-0e317860e0ed.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/4b9f735a-7b01-4ebb-94db-18b3bb90332c.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/75e660ac-732d-4f5b-9e65-b6c747ce3c88.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/b88e672a-58c2-414a-9404-0f6b36c604a8.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/cristiano-ronaldo-drinking.gif" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/FB_IMG_1615209304513.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/FB_IMG_1687291653657.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/IMG_20210315_182954.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376955_x.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376956_x.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376960_x.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376961_x.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376964_x.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376966_x.jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/photo_5012664535005376968_y (1).jpg" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/Sem título.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/Sem título1.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/Sem título2.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+      <div class="swiper-slide">
+        <img src="src/galeria/Sem título4.png" alt="Foto da galeria" class="w-full h-80 object-contain rounded-lg shadow-md bg-gray-100 p-2">
+      </div>
+
+    </div>
+
+    <!-- Botões de navegação -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+    <!-- Paginador -->
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Swiper Init -->
+<script>
+  const swiper = new Swiper('.mySwiper', {
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    slidesPerView: 1,
+    spaceBetween: 20,
+    breakpoints: {
+      640: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    },
+  });
+</script>
+
+  
+        <!-- Timeline Section -->
+        <section id="timeline" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 dancing-font text-blue-600">A Jornada</h2>
+            
+            <div class="max-w-2xl mx-auto relative">
+                <div class="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-200 to-blue-200 rounded-full"></div>
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-16 pb-12">
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">Começo do Namoro</h3>
+                            <p class="text-gray-700">Te pedi em namoro dentro do Mário Quintana. Tu ficou confusa e eu fui pra casa triste. Pra mim foi marcante porque assim que entrei no ônibus começou a chover(muito dramático). Tu tambem roubou minha toalha da moinhos e limpou o suvaco com ela. <br>Depois de dois dias tu aceitou o pedido...</p>
+                            <div class="text-sm text-blue-500 mt-2">10 de Março, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-16 pb-12">
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">Primeiro Encontro</h3>
+                            <p class="text-gray-700">Nosso primeiro encontro como namorados. Fomos passear no Jardim Botânico. Bebemos um pouco, jogamos cartas, recriamos a foto do Chorão com a Grazi e tu me dedidou I Feel So Good Today no uber. Desde esse dia eu já sabia que te amava.</p>
+                            <div class="text-sm text-blue-500 mt-2">15 de Março, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 3 -->
+                <div class="relative pl-16 pb-12">
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">Festival</h3>
+                            <p class="text-gray-700">Fomos em um festival de música ver Ultramen, Da Guedes e Natiruts. Ficamos abraçados vendo. Fiquei surpreso que tu sabia a letra da música do Da Guedes. ODIAMOS a Dj Nina e a Cristal. Tu teve que sair no meio do show do Natiruts porque estava tarde demais.</p>
+                            <div class="text-sm text-blue-500 mt-2">18 de Março, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Timeline Item 4 -->
+                <div class="relative pl-16 pb-12">
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">Seu Aniversário</h3>
+                            <p class="text-gray-700">Nos encontramos no pdb e passamos o dia juntos. Te levei uma caixa de quindim de presente.</p>
+                            <div class="text-sm text-blue-500 mt-2">3 de Maio, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 5 -->
+                <div class="relative pl-16 pb-12">
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">Primeiro Presente</h3>
+                            <p class="text-gray-700">Fui na UFRGS te ver e lá tu me deu o boné do Luisito. Te mostrei um poema que fiz e mais tarde tu também me deu um hamburguer.</p>
+                            <div class="text-sm text-blue-500 mt-2">Junho, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                  <!-- Timeline Item 6 -->
+                <div class="relative pl-16 pb-12">
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">Curso</h3>
+                            <p class="text-gray-700">Começos um curso juntos. Pode ter tido problemas, mas no fundo eu ainda gostava de conviver com você.</p>
+                            <div class="text-sm text-blue-500 mt-2">Agosto, 2023</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more timeline items as needed -->
+            </div>
+        </section>
+        
+        <!-- Love Letter Section -->
+        <section id="letter" class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-12 dancing-font text-blue-600">Cartas</h2>
+            
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg border-l-8 border-blue-400">
+                <div class="pblue pblue-lg text-gray-700">
+                    <p class="dancing-font text-xl mb-6">Meu amor,</p>
+                    
+                    <p class="mb-4">Tudo que eu quero é passar a vida ao teu lado. Eu nunca vou aceitar você dizendo que eu não gosto de você e que só estou aqui por não ter opção, você não tem como saber o que eu sinto, mas eu sim. É um amor recém nascido e que está crescendo e é por isso que eu não quero que termine comigo, por que isso significaria perder o amor da minha vida.</p>
+                    
+                    <p class="mb-4"><i> Roy Orbison siging for the lonely<br> Hey, thats me and i want you only<br> Don't turn me home again...<br> I just can't face myself alone again.</i></p>
+                    
+                    <p class="mb-4">Quero ser o parceiro que você merece, aquele que a ama profundamente e sempre está aqui por você nos momentos bons e ruins, e que te ama incondicionalmente.</p>
+                    
+                    <p class="mb-4">Peço que reconsidere e tente lembrar os momentos e sentimentos bons que já tivemos com o outro para que possamos mais uma vez superar esses obstáculos e construir um laço ainda mais forte.</p>
+                    
+                    <p class="mb-4">Você é o meu tudo, and i don't wanna lose your love tonight.</p>
+                    
+                    <p class="dancing-font text-xl mt-8">Com todo o meu amor,<br>DjFavela</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    =
+
+    
+    
+    <script>
+        // Floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+        
+        setInterval(createHeart, 300);
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
